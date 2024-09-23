@@ -13,6 +13,7 @@ a {
 }
 
 body {
+  font-family: "Roboto", sans-serif;
   overflow-x: hidden;
   /* 削除確認用モーダル */
 }
@@ -283,7 +284,7 @@ form .button__container > button > span.loading {
   }
 }
 @media screen and (max-width: 600px) {
-  input {
+  form input {
     width: 80vw;
   }
   #root {

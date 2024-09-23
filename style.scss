@@ -12,6 +12,7 @@ a {
   color: black;
 }
 body {
+  font-family: "Roboto", sans-serif;
   overflow-x: hidden;
   .error__container {
     width: 80vw;
@@ -284,9 +285,12 @@ form {
 }
 
 @media screen and (max-width: 600px) {
-  input {
-    width: 80vw;
+  form {
+    input {
+      width: 80vw;
+    }
   }
+
   #root {
     width: 84vw;
     margin: auto;
