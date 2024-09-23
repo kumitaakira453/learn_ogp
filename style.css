@@ -1,0 +1,309 @@
+@charset "UTF-8";
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+
+body {
+  overflow-x: hidden;
+  /* 削除確認用モーダル */
+}
+body .error__container {
+  width: 80vw;
+  margin: auto;
+  border-radius: 13px;
+  background-color: rgb(248, 215, 218);
+  border: 1px solid rgb(236, 152, 159);
+  padding: 10px 10px;
+  display: flex;
+  position: relative;
+  align-items: center;
+  margin-bottom: 20px;
+  display: none;
+}
+body .error__container #show_error {
+  width: 70vw;
+  white-space: normal; /* 改行を許可 */
+  overflow-wrap: break-word; /* 単語の途中で改行を許可 */
+  overflow: visible; /* オーバーフローを表示する */
+}
+body .error__container #error_close_btn {
+  position: absolute;
+  right: 10px;
+}
+body > h1 {
+  width: -moz-max-content;
+  width: max-content;
+  margin: auto;
+  margin-bottom: 20px;
+}
+body .modal__delete-check--mask {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 9;
+  top: 0;
+  left: 0;
+}
+body .modal__delete-check {
+  display: none;
+  flex-direction: column;
+  background-color: rgb(135, 209, 222);
+  padding: 40px 50px;
+  width: -moz-max-content;
+  width: max-content;
+  left: 50vw;
+  top: 30vh;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  z-index: 10;
+  border-radius: 23px;
+  border: 2px solid rgb(59, 165, 223);
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+}
+body .modal__delete-check h2 {
+  width: -moz-max-content;
+  width: max-content;
+  margin: 10px auto;
+  font-size: 15px;
+  font-weight: 700;
+}
+body .modal__delete-check .button__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 30px;
+}
+body .modal__delete-check .button__container > button {
+  text-align: center;
+  width: 100px;
+  height: 30px;
+  border-radius: 13px;
+  border: none;
+}
+body .modal__delete-check .button__container > button#modal-cancel {
+  border: 2px solid rgb(132, 134, 137);
+  color: rgb(132, 134, 137);
+  font-size: 15px;
+  font-weight: 700;
+  transition: 0.4s;
+}
+body .modal__delete-check .button__container > button#modal-cancel:hover {
+  color: white;
+  background-color: rgb(132, 134, 137);
+}
+body .modal__delete-check .button__container > button#modal-comfirm {
+  border: 2px solid red;
+  color: red;
+  font-size: 15px;
+  font-weight: 700;
+  transition: 0.4s;
+}
+body .modal__delete-check .button__container > button#modal-comfirm:hover {
+  color: white;
+  background-color: red;
+}
+
+form {
+  width: -moz-max-content;
+  width: max-content;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+form label {
+  font-weight: 700;
+  font-size: 15px;
+}
+form input {
+  margin: 5px auto;
+  width: 60vw;
+  height: 40px;
+  font-size: 16px;
+  border-radius: 13px;
+  transition: 0.2s;
+  padding-left: 13px;
+  border: none;
+  border: 2px solid black;
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+form input:focus {
+  border: none;
+  outline: none;
+  border: 2px solid rgb(28, 100, 233);
+}
+form .past_url > h5 {
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+form .past_url__item {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(155, 141, 155);
+  border-radius: 13px;
+  padding: 5px 10px;
+  font-weight: 400;
+  color: white;
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+  transition: 0.5s;
+  width: 80vw;
+  /* アルファベット列にも対応 */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+form .past_url__item:hover {
+  transform: scale(1.01);
+  background-color: rgb(119, 119, 119);
+}
+form .button__container {
+  display: flex;
+  justify-content: center;
+}
+form .button__container > button {
+  margin: 10px auto;
+  width: 100px;
+  height: 30px;
+  color: white;
+  transition: 0.5s;
+  border: none;
+  border-radius: 13px;
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+form .button__container > button:hover {
+  transform: scale(1.05);
+}
+form .button__container > button#submit {
+  background-color: #28a745;
+}
+form .button__container > button#submit:hover {
+  background-color: #218838;
+}
+form .button__container > button#clear {
+  background-color: #007bff;
+}
+form .button__container > button#clear:hover {
+  background-color: #0056b3;
+}
+form .button__container > button#delete {
+  background-color: #dc3545;
+}
+form .button__container > button#delete:hover {
+  background-color: #c82333;
+}
+form .button__container > button > span {
+  font-size: 17px;
+}
+form .button__container > button > span.regular {
+  display: inline-block;
+}
+form .button__container > button > span.loading {
+  display: none;
+  animation: rotate 2s linear infinite; /* 2秒で1回転、線形の動きで無限に繰り返す */
+}
+
+#root {
+  width: 80vw;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 10vw;
+  margin: auto;
+}
+#root .container {
+  padding: 20px 10px;
+  background-color: antiquewhite;
+  border-radius: 13px;
+  margin: auto;
+  margin-bottom: 20px;
+  transition: 0.5s;
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+}
+#root .container:hover {
+  background-color: rgba(242, 212, 92, 0.4);
+  transform: scale(1.01);
+}
+#root .container h2 {
+  width: 20vw;
+  font-size: 15px;
+  font-weight: 700;
+}
+#root .container img {
+  width: 20vw;
+  height: auto;
+}
+#root .container img.favicon {
+  width: 20px;
+  height: 20px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 100%;
+}
+#root .container p {
+  width: 20vw;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 1030px) {
+  #root {
+    margin-left: 10px;
+  }
+  #root .container h2 {
+    width: 32vw;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  #root .container img {
+    width: 32vw;
+    height: auto;
+  }
+  #root .container p {
+    width: 32vw;
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 600px) {
+  input {
+    width: 80vw;
+  }
+  #root {
+    width: 84vw;
+    margin: auto;
+  }
+  #root .container {
+    align-items: center;
+  }
+  #root .container h2 {
+    width: 80vw;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  #root .container img {
+    width: 80vw;
+    height: auto;
+  }
+  #root .container p {
+    width: 80vw;
+    font-size: 14px;
+  }
+}/*# sourceMappingURL=style.css.map */

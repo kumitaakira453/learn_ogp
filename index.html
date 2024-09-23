@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GetOGP</title>
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <!-- googleフォントの導入 -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="error__container">
+        <div id="show_error"></div>
+        <span class="material-symbols-outlined" id="error_close_btn">
+            close
+        </span>
+    </div>
+    <h1>OGP取得用</h1>
+    <div class="modal__delete-check--mask"></div>
+    <div class="modal__delete-check">
+        <h2>本当に、過去に検索したURLをすべて削除しますか？</h2>
+        <div class="button__container">
+            <button id="modal-cancel">キャンセル</button>
+            <button id="modal-comfirm">削除する</button>
+        </div>
+    </div>
+    <form>
+        <input type="text" id="url" name="url" class="material-input" placeholder="please input url to get ogp">
+        <div class="button__container">
+            <button type="button" id="submit" onclick="onSubmit()">
+                取得
+                <span class="material-symbols-outlined regular">
+                    travel_explore
+                </span>
+                <span class="material-symbols-outlined loading">
+                    autorenew
+                </span>
+            </button>
+            <button type="button" id="clear" onclick="cleanUrlInput()">
+                クリア
+                <span class="material-symbols-outlined">
+                    backspace
+                </span>
+            </button>
+            <button type="button" id="delete" onclick="onDelete()">
+                履歴削除
+                <span class="material-symbols-outlined">
+                    delete
+                </span>
+            </button>
+        </div>
+        <div class="past_url">
+            <h5>過去に検索したURL</h5>
+        </div>
+    </form>
+    <script src="./get_ogp.js"></script>
+    <div id="root"></div>
+</body>
+
+</html>

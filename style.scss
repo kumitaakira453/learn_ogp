@@ -1,0 +1,310 @@
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+body {
+  overflow-x: hidden;
+  .error__container {
+    width: 80vw;
+    margin: auto;
+    border-radius: 13px;
+    background-color: rgb(248, 215, 218);
+    border: 1px solid rgb(236, 152, 159);
+    padding: 10px 10px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    margin-bottom: 20px;
+    display: none;
+    #show_error {
+      width: 70vw;
+      white-space: normal; /* 改行を許可 */
+      overflow-wrap: break-word; /* 単語の途中で改行を許可 */
+      overflow: visible; /* オーバーフローを表示する */
+    }
+    #error_close_btn {
+      position: absolute;
+      right: 10px;
+    }
+  }
+  & > h1 {
+    width: max-content;
+    margin: auto;
+    margin-bottom: 20px;
+  }
+  /* 削除確認用モーダル */
+  .modal__delete-check--mask {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    left: 0;
+  }
+  .modal__delete-check {
+    display: none;
+    flex-direction: column;
+    background-color: rgb(135, 209, 222);
+    padding: 40px 50px;
+    width: max-content;
+    left: 50vw;
+    top: 30vh;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    z-index: 10;
+    border-radius: 23px;
+    border: 2px solid rgb(59, 165, 223);
+    box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+    h2 {
+      width: max-content;
+      margin: 10px auto;
+      font-size: 15px;
+      font-weight: 700;
+    }
+    .button__container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 30px;
+      & > button {
+        text-align: center;
+        width: 100px;
+        height: 30px;
+        border-radius: 13px;
+        border: none;
+        &#modal-cancel {
+          border: 2px solid rgb(132, 134, 137);
+          color: rgb(132, 134, 137);
+          font-size: 15px;
+          font-weight: 700;
+          transition: 0.4s;
+          &:hover {
+            color: white;
+            background-color: rgb(132, 134, 137);
+          }
+        }
+        &#modal-comfirm {
+          border: 2px solid red;
+          color: red;
+          font-size: 15px;
+          font-weight: 700;
+          transition: 0.4s;
+          &:hover {
+            color: white;
+            background-color: red;
+          }
+        }
+      }
+    }
+  }
+}
+form {
+  width: max-content;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+  label {
+    font-weight: 700;
+    font-size: 15px;
+  }
+  input {
+    margin: 5px auto;
+    width: 60vw;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 13px;
+    transition: 0.2s;
+    padding-left: 13px;
+    border: none;
+    border: 2px solid black;
+    box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+    position: relative;
+    &:focus {
+      border: none;
+      outline: none;
+      border: 2px solid rgb(28, 100, 233);
+    }
+  }
+  .past_url {
+    & > h5 {
+      margin-top: 10px;
+      margin-bottom: 8px;
+    }
+    &__item {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      // background-color: rgb(231, 143, 231);
+      background-color: rgb(155, 141, 155);
+      border-radius: 13px;
+      padding: 5px 10px;
+      font-weight: 400;
+      color: white;
+      box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+      box-shadow: 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+      transition: 0.5s;
+      width: 80vw;
+      /* アルファベット列にも対応 */
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      &:hover {
+        transform: scale(1.01);
+        // background-color: rgb(222, 105, 222);
+        background-color: rgb(119, 119, 119);
+      }
+    }
+  }
+  .button__container {
+    display: flex;
+    justify-content: center;
+    & > button {
+      margin: 10px auto;
+      width: 100px;
+      height: 30px;
+      color: white;
+      transition: 0.5s;
+      border: none;
+      border-radius: 13px;
+      box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+      box-shadow: 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:hover {
+        transform: scale(1.05);
+      }
+      &#submit {
+        background-color: #28a745;
+        &:hover {
+          background-color: #218838;
+        }
+      }
+      &#clear {
+        background-color: #007bff;
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+      &#delete {
+        background-color: #dc3545;
+        &:hover {
+          background-color: #c82333;
+        }
+      }
+      & > span {
+        font-size: 17px;
+        &.regular {
+          display: inline-block;
+        }
+        &.loading {
+          display: none;
+          animation: rotate 2s linear infinite; /* 2秒で1回転、線形の動きで無限に繰り返す */
+        }
+      }
+    }
+  }
+}
+
+#root {
+  width: 80vw;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 10vw;
+  margin: auto;
+  .container {
+    padding: 20px 10px;
+    background-color: antiquewhite;
+    border-radius: 13px;
+    // margin-left: 30px;
+    margin: auto;
+    margin-bottom: 20px;
+    transition: 0.5s;
+    box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+    &:hover {
+      background-color: rgb(242, 212, 92, 0.4);
+      transform: scale(1.01);
+    }
+    h2 {
+      width: 20vw;
+      font-size: 15px;
+      font-weight: 700;
+    }
+    img {
+      width: 20vw;
+      height: auto;
+      &.favicon {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+        border-radius: 100%;
+      }
+    }
+    p {
+      width: 20vw;
+      font-size: 14px;
+    }
+  }
+}
+
+@media screen and (max-width: 1030px) {
+  #root {
+    margin-left: 10px;
+    .container {
+      h2 {
+        width: 32vw;
+        font-size: 15px;
+        font-weight: 700;
+      }
+      img {
+        width: 32vw;
+        height: auto;
+      }
+      p {
+        width: 32vw;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  input {
+    width: 80vw;
+  }
+  #root {
+    width: 84vw;
+    margin: auto;
+    .container {
+      align-items: center;
+      h2 {
+        width: 80vw;
+        font-size: 15px;
+        font-weight: 700;
+      }
+      img {
+        width: 80vw;
+        height: auto;
+      }
+      p {
+        width: 80vw;
+        font-size: 14px;
+      }
+    }
+  }
+}
