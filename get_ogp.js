@@ -264,16 +264,10 @@ function deleteError() {
 }
 
 function isValidUrl(url) {
-    // URL（https・http）の正規表現
-    let regex = new RegExp(
-        "^(https?:\\/\\/)?" +
-            "(([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}" +
-            "(\\/[-a-z\\d%_.~+]*)*",
-        "i"
-    );
-    if (regex.test(url)) {
+    try {
+        new URL(url);
         return true;
-    } else {
+    } catch {
         return false;
     }
 }
