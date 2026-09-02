@@ -42,37 +42,53 @@ function onDelete() {
 }
 
 async function getOgp(url) {
-    const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(url)}`;
-    return fetch(proxyUrl)
-        .then((response) => response.text())
-        .then((html) => new DOMParser().parseFromString(html, "text/html"))
-        .then((dom) => {
-            // OGPの取得
-            const ogp = [...dom.head.children]
-                .filter(
-                    (element) =>
-                        element.tagName === "META" &&
-                        element.getAttribute("property")?.startsWith("og:")
-                )
-                .reduce((ogp, element) => {
-                    ogp[element.getAttribute("property")] =
-                        element.getAttribute("content");
-                    return ogp;
-                }, {});
+    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+    const response = await fetch(proxyUrl);
 
-            // Faviconの取得
-            const favicon =
-                [...dom.head.children]
-                    .filter(
-                        (element) =>
-                            element.tagName === "LINK" &&
-                            (element.getAttribute("rel") === "icon" ||
-                                element.getAttribute("rel") === "shortcut icon")
-                    )
-                    .map((element) => element.getAttribute("href"))[0] || null;
-            // 結果を返す
-            return { ogp, favicon };
-        });
+    if (!response.ok) {
+        throw new Error(`Failed to fetch OGP: ${response.status}`);
+    }
+
+    const html = await response.text();
+    const dom = new DOMParser().parseFromString(html, "text/html");
+
+    const ogp = [...dom.head.children]
+        .filter(
+            (el) =>
+                el.tagName === "META" &&
+                el.getAttribute("property")?.startsWith("og:")
+        )
+        .reduce((acc, el) => {
+            acc[el.getAttribute("property")] = el.getAttribute("content");
+            return acc;
+        }, {});
+
+    const imageSrc = ogp["og:image"]
+        ? new URL(ogp["og:image"], url).href
+        : null;
+
+    const faviconHref = [...dom.head.children]
+        .filter(
+            (el) =>
+                el.tagName === "LINK" &&
+                ["icon", "shortcut icon"].includes(
+                    el.getAttribute("rel")
+                )
+        )
+        .map((el) => el.getAttribute("href"))
+        .find(Boolean);
+
+    const favicon = faviconHref
+        ? new URL(faviconHref, url).href
+        : null;
+
+    return {
+        ogp: {
+            ...ogp,
+            "og:image": imageSrc,
+        },
+        favicon,
+    };
 }
 
 function displayOgpContainer(ogp, favicon) {
