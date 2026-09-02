@@ -37,11 +37,16 @@ class UrlManager {
     }
 
     async getOgp(url) {
-        const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(url)}`;
+        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
         const response = await fetch(proxyUrl);
+    
+        if (!response.ok) {
+            throw new Error(`Failed to fetch OGP: ${response.status}`);
+        }
+    
         const html = await response.text();
         const dom = new DOMParser().parseFromString(html, "text/html");
-
+    
         const ogp = [...dom.head.children]
             .filter(
                 (el) =>
@@ -52,20 +57,34 @@ class UrlManager {
                 acc[el.getAttribute("property")] = el.getAttribute("content");
                 return acc;
             }, {});
-
-        const favicon =
-            [...dom.head.children]
-                .filter(
-                    (el) =>
-                        el.tagName === "LINK" &&
-                        (el.getAttribute("rel") === "icon" ||
-                            el.getAttribute("rel") === "shortcut icon")
-                )
-                .map((el) => el.getAttribute("href"))[0] || null;
-
-        return { ogp, favicon };
+    
+        const imageSrc = ogp["og:image"]
+            ? new URL(ogp["og:image"], url).href
+            : null;
+    
+        const faviconHref = [...dom.head.children]
+            .filter(
+                (el) =>
+                    el.tagName === "LINK" &&
+                    ["icon", "shortcut icon"].includes(
+                        el.getAttribute("rel")
+                    )
+            )
+            .map((el) => el.getAttribute("href"))
+            .find(Boolean);
+    
+        const favicon = faviconHref
+            ? new URL(faviconHref, url).href
+            : null;
+    
+        return {
+            ogp: {
+                ...ogp,
+                "og:image": imageSrc,
+            },
+            favicon,
+        };
     }
-
     displayOgpContainer(ogp, favicon) {
         const {
             "og:description": description,
